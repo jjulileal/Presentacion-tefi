@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>El deterioro de la salud mental y el mal uso de la IA</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body id="top">
+<nav aria-label="Secciones">
+    <div class="nav-logos" aria-label="Instituciones">
+      <img src="logo-padreclaret.png" alt="Instituto Padre Claret">
+      <img src="logo-ubp.png" alt="UBP">
+    </div>
+    <div class="nav-links">
+      <a id="t-inicio" href="#top" aria-current="true">Inicio</a>
+      <a id="t-red" href="#s-red">Red neuronal</a>
+      <a id="t-codificador" href="#s-codificador">Codificador y decodificador</a>
+      <a id="t-rlhf" href="#s-rlhf">RLHF vs RLAIF</a>
+    </div>
+</nav>
+<header>
+  <h1>El deterioro de la salud mental en las personas debido al mal uso de la Inteligencia Artificial (IA)</h1>
+      <p class="by">
+        Made by: LEAL, Julián y STREITAS, Santiago <br> Instituto Padre Claret. <br> Tutor: Marcelo Maldonado. <br> Fecha: 08/10/2026</p>
+</header>
+<main>
+
+<section id="s-inicio">
+  <h2 id="dequehablamos">¿De qué hablamos?</h2>
+  <div class="orbit">
+    <div class="core">IA y salud mental</div>
+    <div class="card" data-k="prob" data-d="up" style="--a:-90deg">
+      <button class="ttl" aria-expanded="false">Problemáticas</button>
+      <div class="body"></div>
+    </div>
+    <div class="card" data-k="cau" data-d="right" style="--a:-18deg">
+      <button class="ttl" aria-expanded="false">Causas</button>
+      <div class="body"></div>
+    </div>
+    <div class="card" data-k="obj" data-d="down" style="--a:54deg">
+      <button class="ttl" aria-expanded="false">Objetivos</button>
+      <div class="body"></div>
+    </div>
+    <div class="card" data-k="llm" data-d="down" style="--a:126deg">
+      <button class="ttl" aria-expanded="false">LLMs</button>
+      <div class="body"></div>
+    </div>
+    <div class="card" data-k="rec" data-d="left" style="--a:198deg">
+      <button class="ttl" aria-expanded="false">Recomendaciones</button>
+      <div class="body"></div>
+    </div>
+  </div>
+</section>
+
+<section id="s-red">
+  <h2 id="laredneuronal">La red neuronal</h2>
+  <p id="predneuronal">Una red neuronal es una cadena de capas de “neuronas”: cada una recibe números, los multiplica por pesos, los suma y pasa el resultado a la capa siguiente. Entrenar la red es ajustar esos pesos hasta que la salida sea correcta. Esta red recibe una imagen de 28×28 píxeles (784 números), la procesa en dos capas ocultas de 16 neuronas y responde con 10 salidas: una por cada dígito.</p>
+  <button id="use" disabled>Preparando la red…</button>
+  <div class="bar"><i id="pb"></i></div>
+  <p class="small" id="st">Entrenando la red en tu navegador con dígitos generados con distintas tipografías.</p>
+
+  <div class="stage" id="stage">
+    <div id="left" class="panel">
+      <strong>Dibujá un número</strong>
+      <p class="small">Hacelo grande y centrado, con un solo trazo o varios.</p>
+      <canvas id="draw" aria-label="Zona de dibujo"></canvas>
+      <div class="row"><button class="alt" id="clr">Borrar</button><button id="go">Reconocer</button></div>
+      <p id="pred" aria-live="polite"></p>
+    </div>
+    <div class="panel">
+      <canvas id="net" aria-label="Visualización de la red neuronal"></canvas>
+      <div class="leg"><span><b style="background:var(--acc)"></b>Neurona activa</span><span><b style="background:var(--pos)"></b>Conexión que suma</span><span><b style="background:var(--neg)"></b>Conexión que resta</span></div>
+    </div>
+  </div>
+
+  <div class="network-explainer">
+    <h3 id="comofuncionalared">¿Cómo funciona la red?</h3>
+    <div class="network-flow">
+      <div class="panel"><h3>1 - Entrada</h3><p>Tu dibujo se recorta, se centra y se reduce a una grilla de 28×28. Cada píxel es un número entre 0 (negro) y 1 (blanco).</p></div>
+      <span class="network-arrow" aria-hidden="true">→</span>
+      <div class="panel"><h3>2 - Capas ocultas</h3><p>Cada neurona detecta un patrón de la capa anterior. Cuanto más se parece la entrada a ese patrón, más se ilumina.</p></div>
+      <span class="network-arrow" aria-hidden="true">→</span>
+      <div class="panel"><h3>3 - Salida</h3><p>Las 10 neuronas finales se convierten en probabilidades. La más alta es la respuesta de la red.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="s-codificador">
+  <h2 id="codydeco">Codificador y decodificador</h2>
+  <p id="pcodydeco">Son dos mitades de un mismo sistema. El codificador (encoder) lee la entrada y la comprime en un vector latente: una lista corta de números que conserva lo esencial. El decodificador (decoder) toma ese vector y genera una salida a partir de él: texto, una imagen o una traducción.</p>
+  <div class="flow"><span>Entrada</span><i>→</i><span class="k">Codificador</span><i>→</i><span>Vector latente</span><i>→</i><span class="k">Decodificador</span><i>→</i><span>Salida</span></div>
+  <div class="panel">
+    <strong>Ejemplo visual: comprimir y reconstruir un dígito</strong>
+    <p class="small">Elegí un dígito y cambiá cuántos números puede guardar el vector latente. Con pocos números, el decodificador reconstruye una imagen borrosa.</p>
+    <div class="row" id="eddig"></div>
+    <div hidden><canvas id="e-in" width="28" height="28"></canvas><canvas id="e-lat" width="112" height="112"></canvas><canvas id="e-out" width="28" height="28"></canvas></div>
+    <svg id="edv" class="edv" viewBox="0 0 760 275" role="img" aria-label="Autoencoder: imagen original, codificador, imagen comprimida, decodificador e imagen reconstruida"></svg>
+    <div class="ed2"><span id="e-n"></span><span id="e-err"></span></div>
+    <label>Tamaño del vector latente <input type="range" id="e-k" min="2" max="28" value="7" aria-label="Tamaño del vector latente"></label>
+    <p class="small">En este ejemplo el codificador es una compresión fija (promedia píxeles). En una IA real, la red neuronal aprende sola qué información conservar.</p>
+  </div>
+  <div class="cols">
+    <div class="panel"><h3>Solo codificador</h3><p>Convierte texto o imágenes en vectores que reflejan su significado. Modelos como BERT sirven para clasificar y buscar contenido parecido.</p></div>
+    <div class="panel"><h3>Solo decodificador</h3><p>Los modelos de la familia GPT leen lo que escribiste y siguen generando palabra por palabra. Así funcionan los chatbots.</p></div>
+    <div class="panel"><h3>Codificador + decodificador</h3><p>Uno entiende y el otro produce. Es la estructura de la traducción automática, del Transformer original y del autoencoder, que aprende a reconstruir sus propios datos.</p></div>
+  </div>
+</section>
+
+<section id="s-espacio">
+  <h2>Vectores multidimensionales y espacio vectorial</h2>
+  <p>Un modelo de lenguaje no entiende las palabras como las personas: las convierte en listas de números. Esas listas son los vectores multidimensionales (o incrustaciones), y el lugar donde viven es el espacio vectorial. Las palabras con significados parecidos quedan cerca unas de otras.</p>
+  <div class="panel">
+    <strong>Un vector multidimensional</strong>
+    <p class="small">Elegí una palabra. Cada barra es una dimensión: azul si el número es positivo, rojo si es negativo. Los valores son ilustrativos.</p>
+    <div class="row" id="vw"></div>
+    <div class="vb" id="vb"></div>
+    <p class="small" id="vc"></p>
+  </div>
+  <div class="panel" style="margin-top:14px">
+    <strong>El espacio vectorial</strong>
+    <p class="small">Cada palabra es un punto. Tocá uno para ver cuáles son sus vecinas más cercanas. Acá hay 2 dimensiones para poder dibujarlas; un LLM usa cientos o miles.</p>
+    <svg id="vs" class="vs" viewBox="0 0 600 340" role="img" aria-label="Mapa de palabras en un espacio vectorial"></svg>
+    <div class="leg"><span><b style="background:#f2a100"></b>Animales</span><span><b style="background:#5aa0ff"></b>Vehículos</span><span><b style="background:#6fcf97"></b>Emociones</span></div>
+    <p id="vn" style="margin:10px 0 0"></p>
+  </div>
+  <div class="cols">
+    <div class="panel"><h3>Vector multidimensional</h3><p>Lista larga de números que representa el significado y el contexto de una palabra, frase o texto.</p></div>
+    <div class="panel"><h3>Espacio vectorial</h3><p>Entorno matemático de alta dimensión donde se ubican esos vectores. La distancia entre puntos mide qué tan parecido es su significado.</p></div>
+    <div class="panel"><h3>Con el codificador y el decodificador</h3><p>El codificador convierte el texto en vectores y el decodificador los usa para producir una respuesta nueva, palabra por palabra.</p></div>
+  </div>
+</section>
+
+<section id="s-rlhf">
+  <h2>RLHF vs RLAIF</h2>
+  <p>Después del preentrenamiento y el ajuste fino, el modelo se refina con aprendizaje por refuerzo: genera respuestas, recibe una señal de qué tan buenas son y se ajusta. La diferencia entre los dos métodos es quién da esa señal.</p>
+  <button id="rsim">Recorrer el proceso</button>
+  <div class="rl">
+    <div class="panel" id="rl-h">
+      <h3>RLHF: retroalimentación humana</h3>
+      <ol class="st">
+        <li class="m"><span class="who m">IA</span>El modelo genera varias respuestas a una misma pregunta.</li>
+        <li class="h"><span class="who h">Persona</span>Evalúa y elige las respuestas que prefiere: fluidas, coherentes, útiles y que coinciden con ella.</li>
+        <li class="m"><span class="who m">IA</span>Un modelo de recompensa aprende a predecir esas preferencias como un puntaje.</li>
+        <li class="m"><span class="who m">IA</span>El modelo se ajusta para sacar más puntaje y el ciclo se repite.</li>
+      </ol>
+      <p class="warn">El problema: las personas no distinguen bien entre lo convincente y lo correcto. El modelo aprende a agradar (reward hacking) y aparece la sicofancia.</p>
+    </div>
+    <div class="panel" id="rl-a">
+      <h3>RLAIF: retroalimentación de la IA</h3>
+      <ol class="st">
+        <li class="m"><span class="who m">IA</span>El modelo genera varias respuestas a una misma pregunta.</li>
+        <li class="m"><span class="who m">IA evaluadora</span>Otro modelo critica y califica las respuestas, sin personas en cada vuelta.</li>
+        <li class="m"><span class="who m">IA</span>Un modelo de recompensa aprende esas calificaciones.</li>
+        <li class="m"><span class="who m">IA</span>El modelo se ajusta y el ciclo se repite, mucho más rápido.</li>
+      </ol>
+      <p class="warn">El problema: si el modelo evaluador tiene fallas o sesgos, se agravan durante el entrenamiento (Winland, 2026).</p>
+    </div>
+  </div>
+  <div class="panel tw">
+    <table>
+      <tr><th></th><th>RLHF</th><th>RLAIF</th></tr>
+      <tr><th>Quién evalúa</th><td>Personas</td><td>Otro modelo de IA</td></tr>
+      <tr><th>Velocidad y costo</th><td>Lento y caro: necesita evaluadores humanos</td><td>Rápido y barato: se automatiza la recopilación de preferencias</td></tr>
+      <tr><th>Riesgo principal</th><td>Se premia el acuerdo y la fluidez antes que la verdad</td><td>Hereda y amplifica los sesgos del evaluador</td></tr>
+      <tr><th>Sicofancia</th><td>Más notoria: el reward hacking aumenta</td><td>Se reduce en gran medida, pero no desaparece</td></tr>
+    </table>
+  </div>
+</section>
+
+</main>
+<script src="script.js"></script>
+</body>
+</html>
