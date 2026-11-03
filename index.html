@@ -78,7 +78,7 @@
 
 <section id="s-espacio">
   <h3>Vectores multidimensionales y espacio vectorial</h3>
-  <p id="pvectores">Un modelo de lenguaje no entiende las palabras como las personas: las convierte en listas de números. Esas listas son los vectores multidimensionales (o incrustaciones), y el lugar donde viven es el espacio vectorial. Las palabras con significados parecidos quedan cerca unas de otras.</p>
+  <p id="pvectores">Un modelo de lenguaje no entiende las palabras como las personas: las convierte en listas de números. Esas listas son los vectores multidimensionales (o incrustaciones de palabras), y el lugar donde viven es el espacio vectorial. Las palabras con significados parecidos quedan cerca unas de otras.</p>
   <div class="panel" style="margin-top:14px">
     <strong>El espacio vectorial</strong>
     <p class="small">Cada palabra es un punto. Tocá uno para ver cuáles son sus vecinas más cercanas. Acá hay 2 dimensiones para poder dibujarlas; un LLM usa cientos o miles.</p>
@@ -95,7 +95,8 @@
 
 <section id="s-red">
   <h3 id="laredneuronal">La red neuronal</h3>
-  <p id="predneuronal">Una red neuronal es una cadena de capas de “neuronas”: cada una recibe números, los multiplica por pesos, los suma y pasa el resultado a la capa siguiente. Entrenar la red es ajustar esos pesos hasta que la salida sea correcta. Esta red recibe una imagen de 28×28 píxeles (784 números), la procesa en dos capas ocultas de 16 neuronas y responde con 10 salidas: una por cada dígito.</p>
+  <p id="predneuronal1">Una red neuronal es una cadena de capas de “neuronas”: cada una recibe números, los multiplica por pesos, los suma y pasa el resultado a la capa siguiente. Entrenar la red es ajustar esos pesos hasta que la salida sea correcta. </p>
+  <p id="predneuronal2">Esta red Ejemplar recibe una imagen de 28×28 píxeles (784 números), la procesa en dos capas ocultas de 16 neuronas y responde con 10 salidas: una por cada dígito.</p>
   <button id="use" disabled>Preparando la red…</button>
   <div class="bar"><i id="pb"></i></div>
   <p class="small" id="st">Entrenando la red en tu navegador con dígitos generados con distintas tipografías.</p>
@@ -129,7 +130,6 @@
 <section id="s-rlhf">
   <h3>RLHF vs RLAIF</h3>
   <p>Después del preentrenamiento y el ajuste fino, el modelo se refina con aprendizaje por refuerzo: genera respuestas, recibe una señal de qué tan buenas son y se ajusta. La diferencia entre los dos métodos es quién da esa señal.</p>
-  <button id="rsim">Recorrer el proceso</button>
   <div class="rl">
     <div class="panel" id="rl-h">
       <h3>RLHF: retroalimentación humana</h3>

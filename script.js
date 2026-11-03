@@ -200,7 +200,6 @@ $('#vs').onclick=e=>{const i=e.target.dataset.i;if(i!=null){vsel=+i;vdraw()}};vd
 
 /* ---------- RLHF vs RLAIF ---------- */
 function run(ol,d){let i=0;const go=()=>{[...ol.children].forEach(l=>l.classList.remove('on'));if(i>=4)return;ol.children[i].classList.add('on');setTimeout(go,d[i++])};go()}
-$('#rsim').onclick=()=>{run($('#rl-h ol'),[900,2800,900,900]);run($('#rl-a ol'),[900,700,900,900])};
 
 /* ---------- Menú: resalta la parte de la página donde estás ---------- */
 const NAV={inicio:$('#t-inicio'),red:$('#t-red'),codificador:$('#t-codificador'),rlhf:$('#t-rlhf')},

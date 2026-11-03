@@ -149,11 +149,17 @@ h3 + p {
     font-size: 0.97rem;
 }
 
-#predneuronal{
+#predneuronal1{
     text-align: justify;
     margin:20px auto 40px;
     font-size: clamp(1.5rem, 4.2vw, 22px);
 }
+#predneuronal2{
+    text-align: justify;
+    margin:20px auto 40px;
+    font-size: clamp(1.5rem, 4.2vw, 22px);
+}
+
 
 #codydeco{
     text-align: center;
@@ -539,7 +545,7 @@ input[type="range"] {
     stroke-dasharray: 4 4;
 }
 .rl {
-    display: grid;
+  display: none;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 14px;
     margin: 18px 0;
@@ -589,6 +595,7 @@ input[type="range"] {
 }
 .tw {
     overflow-x: auto;
+    margin-bottom: 100px;
 }
 table {
     width: 100%;
@@ -610,6 +617,149 @@ th {
 [hidden] {
     display: none !important;
 }
+
+/* ---------- Ajustes para teléfonos ---------- */
+@media (max-width: 600px) {
+    body {
+        font-size: 15px;
+        line-height: 1.5;
+        overflow-x: hidden;
+    }
+
+    header,
+    main {
+        width: 100%;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    nav {
+        width: 100%;
+        padding: 50px 8px 8px;
+        border-bottom-width: 1px;
+    }
+
+    .nav-logos {
+        top: 6px;
+    }
+
+    .nav-links {
+        gap: 2px;
+    }
+
+    .nav-links a {
+        padding: 7px 8px;
+        font-size: 0.8rem;
+        line-height: 1.2;
+    }
+
+    h1 {
+        font-size: clamp(1.7rem, 9vw, 2.5rem);
+        margin: 90px auto 10px;
+    }
+
+    h2 {
+        font-size: 1.45rem;
+        line-height: 1.2;
+    }
+
+    h3 {
+        line-height: 1.25;
+    }
+
+    main > section + section {
+        margin-top: 48px;
+    }
+
+    .panel {
+        padding: 14px;
+        border-radius: 10px;
+    }
+
+    .cols,
+    .stage.open {
+        grid-template-columns: 1fr;
+    }
+
+    .network-explainer > h3 {
+        margin: 60px 0 32px;
+        font-size: 1.45rem;
+    }
+
+    .network-flow {
+        gap: 8px;
+    }
+
+    .network-arrow {
+        font-size: 1.6rem;
+    }
+
+    .flow {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .flow span {
+        width: 100%;
+        padding: 9px 12px;
+        text-align: center;
+    }
+
+    .ed {
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .ed canvas {
+        width: 82px;
+        height: 82px;
+    }
+
+    .ed .ar {
+        transform: rotate(90deg);
+    }
+
+    .edv {
+        min-height: 170px;
+    }
+
+    .orbit {
+        width: 100%;
+    }
+
+    .vs {
+        height: 250px;
+    }
+
+    .vb {
+        padding-bottom: 24px;
+    }
+
+    #pred {
+        font-size: 1.25rem;
+    }
+
+    .tw {
+        margin-bottom: 100px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .tw table {
+        min-width: 620px;
+    }
+
+    th,
+    td {
+        padding: 8px;
+        font-size: 0.85rem;
+    }
+
+    .by {
+        margin: 100px 0 160px;
+    }
+}
+
 @media (max-width: 760px) {
     nav {
         padding-top: 54px;
