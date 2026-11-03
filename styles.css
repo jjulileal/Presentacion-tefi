@@ -159,7 +159,11 @@ h3 + p {
     margin:20px auto 40px;
     font-size: clamp(1.5rem, 4.2vw, 22px);
 }
-
+#prlhfvsrlaif{
+    text-align: justify;
+    margin:20px auto 40px;
+    font-size: clamp(1.5rem, 4.2vw, 22px);
+}
 
 #codydeco{
     text-align: center;
@@ -439,7 +443,7 @@ input[type="range"] {
     width: 100%;
     height: auto;
     display: block;
-    margin: 12px 0;
+    margin: -76px 0 12px;
 }
 .edv text {
     fill: var(--ink);
@@ -464,7 +468,7 @@ input[type="range"] {
 .orbit {
     position: relative;
     width: min(100%, 700px);
-    transition: margin-top 0.45s ease;
+    transition: margin-top 0.45s ease, margin-bottom 0.45s ease;
     aspect-ratio: 1;
     margin: 12px auto;
 }
@@ -721,6 +725,7 @@ th {
 
     .edv {
         min-height: 170px;
+        margin-top: -34px;
     }
 
     .orbit {

@@ -11,6 +11,39 @@ const orbit=$('.orbit'),cards=[...document.querySelectorAll('.card')];let lastW=
 cards.forEach(c=>c.querySelector('.body').innerHTML=INFO[c.dataset.k][1]);
 const rel=c=>{const o=orbit.getBoundingClientRect(),r=c.getBoundingClientRect();return{l:r.left-o.left,t:r.top-o.top,w:r.width,h:r.height}};
 const setBox=(c,b)=>{c.style.left=b.l+'px';c.style.top=b.t+'px';c.style.width=b.w+'px';c.style.height=typeof b.h==='number'?b.h+'px':b.h};
+const ringAngle=c=>parseFloat(c.style.getPropertyValue('--a'))||0;
+const placeOnRing=(c,angle)=>{
+  const w=orbit.clientWidth,h=orbit.clientHeight;
+  const a=angle*Math.PI/180;
+  // El anillo CSS usa 39% del ancho y 39% del alto; conservar ambos radios
+  // evita que las cards salgan de la línea punteada, también en móviles.
+  const x=w/2+w*.39*Math.cos(a),y=h/2+h*.39*Math.sin(a);
+  const box=rel(c);
+  // Las cards cerradas tienen transform: translate(-50%, -50%), por lo que
+  // left/top representan el centro, no la esquina superior izquierda.
+  setBox(c,{l:x,t:y,w:box.w,h:box.h});
+  c._ringShifted=true;
+};
+const resetRingCard=c=>{
+  if(!c._ringShifted)return;
+  ['left','top','width','height'].forEach(p=>c.style[p]='');
+  c._ringShifted=false;
+};
+const separateRingCards=active=>{
+  const moveOnly={rec:'llm',cau:'obj'};
+  const target=moveOnly[active.dataset.k];
+  if(!target)return;
+  const base=ringAngle(active);
+  cards.forEach(c=>{
+    if(c===active||c.dataset.k!==target)return;
+    let delta=ringAngle(c)-base;
+    while(delta>180)delta-=360;
+    while(delta<-180)delta+=360;
+    // Aleja las cards vecinas angularmente, manteniéndolas sobre el anillo.
+    const shift=Math.abs(delta)<110?(delta<0?-24:24):0;
+    placeOnRing(c,ringAngle(c)+shift);
+  });
+};
 function openCard(c){
   cards.forEach(x=>x!==c&&closeCard(x));clearTimeout(c._t);
   const z=rel(c),d=c.dataset.d,o=orbit.getBoundingClientRect(),W=Math.min(d==='up'?460:340,innerWidth-24);
@@ -21,12 +54,19 @@ function openCard(c){
   const t=d==='up'?z.t+z.h-H:z.t;
   setBox(c,z);c.offsetWidth;c.classList.remove('meas');                /* vuelve al tamaño del botón y anima hasta la card */
   setBox(c,{l,t,w:W,h:H});
+  separateRingCards(c);
   orbit.style.marginTop=(t<0?12-t+8:12)+'px';                          /* hace lugar arriba si la card crece hacia arriba */
+  orbit.style.marginBottom=(c.dataset.k==='llm'||c.dataset.k==='obj')
+    ?Math.max(12,t+H-orbit.clientHeight+12)+'px'
+    :'12px';                                                          /* desplaza el contenido inferior, no las cards */
   c.querySelector('.ttl').setAttribute('aria-expanded','true')}
 function closeCard(c){
-  if(!c.classList.contains('open'))return;
+  if(!c.classList.contains('open')){resetRingCard(c);return}
   c.classList.remove('open');c.classList.add('closing');c.querySelector('.ttl').setAttribute('aria-expanded','false');
-  setBox(c,c._z);orbit.style.marginTop='12px';
+  setBox(c,c._z);orbit.style.marginTop='12px';orbit.style.marginBottom='12px';
+  // Las cards desplazadas vuelven inmediatamente a sus coordenadas CSS
+  // originales; así nunca quedan guardadas en una posición nueva.
+  cards.forEach(x=>{if(x!==c)resetRingCard(x)});
   c._t=setTimeout(()=>{c.classList.remove('closing','anim');['left','top','width','height'].forEach(p=>c.style[p]='')},520)}
 cards.forEach(c=>c.querySelector('.ttl').onclick=()=>c.classList.contains('open')?closeCard(c):openCard(c));
 document.addEventListener('click',e=>{if(!e.target.closest('.card'))cards.forEach(closeCard)});
