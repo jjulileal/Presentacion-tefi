@@ -880,3 +880,64 @@ th {
 main > section + section {
     margin-top: 72px;
 }
+
+/* Prioridad final para teléfonos: evita que reglas posteriores sobrescriban el layout móvil. */
+@media screen and (max-width: 600px) {
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    header,
+    main {
+        width: 100%;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    main > section + section {
+        margin-top: 48px;
+    }
+
+    .panel,
+    .cols,
+    .network-flow,
+    .stage,
+    .ed,
+    .flow {
+        max-width: 100%;
+    }
+
+    .network-flow,
+    .stage.open {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .network-arrow {
+        justify-self: center;
+        transform: rotate(90deg);
+    }
+
+    .cols {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .edv,
+    .vs,
+    #draw,
+    #net {
+        max-width: 100%;
+    }
+
+    .tw {
+        width: 100%;
+        margin-bottom: 100px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
