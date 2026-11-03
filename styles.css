@@ -51,6 +51,7 @@ body {
         sans-serif;
 }
 header,
+
 main {
     max-width: 1100px;
     margin: 0 auto;
@@ -81,6 +82,10 @@ nav {
     display: flex;
     justify-content: center;
     border-bottom: 2px solid var(--line);
+    transition: transform 0.25s ease;
+}
+nav.nav-hidden {
+    transform: translateY(-100%);
 }
 .nav-logos {
     position: absolute;
@@ -89,7 +94,7 @@ nav {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 6px 8px 6px 0;
+    padding: 4px 8px 4px 0;
 }
 .nav-links {
     display: flex;
@@ -98,8 +103,8 @@ nav {
     flex-wrap: wrap;
 }
 .nav-logos img {
-    width: 42px;
-    height: 42px;
+    width: 34px;
+    height: 34px;
     object-fit: contain;
     display: block;
 }
@@ -125,42 +130,65 @@ button:focus-visible {
     outline-offset: 2px;
 }
 
-#dequehablamos{
+.letrasAzules{
+    color: #538feb;
+}
+h2 {
     text-align: center;
     margin:100px auto 10px;
     font-size: clamp(1.5rem, 4.2vw, 40px);
-    }
+}
 
-#laredneuronal{
+h3 {
     text-align: center;
     margin:100px auto 10px;
     font-size: clamp(1.5rem, 4.2vw, 40px);
+}
+h3 + p {
+    text-align: justify;
+    font-size: 0.97rem;
 }
 
 #predneuronal{
     text-align: justify;
     margin:20px auto 40px;
-    font-size: 22px;
+    font-size: clamp(1.5rem, 4.2vw, 22px);
 }
 
 #codydeco{
     text-align: center;
-    margin:250px auto 60px;
+    margin:100px auto 60px;
     font-size: clamp(1.5rem, 4.2vw, 40px);
 }
 
 #pcodydeco{
     text-align: justify;
+    margin:50px auto 90px;
+    font-size: clamp(1.5rem, 4.2vw, 15px);
+}
+
+#pvectores{
+    text-align: justify;
+    margin:50px auto 90px;
+    font-size: clamp(1.5rem, 4.2vw, 15px);
+}
+
+#partesLLM{
+    text-align: center;
     margin:20px auto 90px;
-    font-size: 22px;
+    font-size: clamp(1.5rem, 4.2vw, 25px);
 }
 
 #s-codificador{
     justify-content: center;
 }
-p {
-    max-width: 68ch;
+.flow {
+    justify-content: center;
 }
+#eddig {
+    justify-content: center;
+}
+
 .panel {
     background: var(--panel);
     border: 1px solid var(--line);
@@ -326,6 +354,33 @@ button:disabled {
     color: var(--bg);
     border-color: var(--ink);
 }
+.flow span.k:nth-of-type(2) {
+    background: var(--pos);
+    color: #fff;
+    border-color: var(--pos);
+}
+.flow span.k:nth-of-type(4) {
+    background: var(--acc);
+    color: #111;
+    border-color: var(--acc);
+}
+.decoder-cards .panel,
+.vector-cards .panel {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    align-content: stretch;
+}
+.decoder-cards .panel h3,
+.vector-cards .panel h3 {
+    margin: 0 0 10px;
+}
+.decoder-cards .panel p,
+.vector-cards .panel p {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    text-align: center;
+}
 .flow i {
     font-style: normal;
     color: var(--mut);
@@ -367,7 +422,7 @@ input[type="range"] {
 
 .by{
     color: var(--mut);
-    margin: 200px 0 24px;
+    margin: 200px 0 300px;
     font-size: 0.95rem;
     max-width: none;
 }
@@ -465,7 +520,7 @@ input[type="range"] {
 }
 .vs {
     width: 100%;
-    height: auto;
+    height: clamp(260px, 32vw, 340px);
     display: block;
 }
 .vs text {

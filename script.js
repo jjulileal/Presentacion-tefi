@@ -166,8 +166,7 @@ function edraw(){if(!ev)return;const n=+ek.value,im=ein.createImageData(G,G);
   for(let i=0;i<n*n;i++){const v=d[i*4];el.fillStyle='rgb('+v+','+v+','+v+')';el.fillRect((i%n)*s,((i/n)|0)*s,s-.5,s-.5)}
   eo.imageSmoothingEnabled=true;eo.imageSmoothingQuality='high';eo.drawImage(ec,0,0,n,n,0,0,G,G);
   const o=eo.getImageData(0,0,G,G).data;let e=0;for(let i=0;i<G*G;i++)e+=Math.abs(o[i*4]/255-ev[i]);
-  $('#e-n').textContent='Vector latente: '+n*n+' números ('+n+'×'+n+') en lugar de '+G*G;
-  $('#e-err').textContent='Error medio de la reconstrucción: '+Math.round(e/(G*G)*100)+' %';edsvg(n)}
+  edsvg(n)}
 function edsvg(n){const S=24+n*3,cy=145,lx=380-S/2,ly=cy-S/2,
   im=(c,x,y,w,h)=>`<image href="${c.toDataURL()}" x="${x}" y="${y}" width="${w}" height="${h}" preserveAspectRatio="none" style="image-rendering:pixelated"/><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="none" style="stroke:var(--line)"/>`;
   $('#edv').innerHTML=`<polygon points="150,75 ${lx},${ly} ${lx},${ly+S} 150,215" style="fill:var(--panel);stroke:var(--pos);stroke-width:2"/>`+
@@ -180,23 +179,23 @@ function edsvg(n){const S=24+n*3,cy=145,lx=380-S/2,ly=cy-S/2,
   `<text x="680" y="240" text-anchor="middle">Imagen reconstruida</text><text class="s" x="680" y="258" text-anchor="middle">X′ = (G∘F)(X)</text>`}
 for(let d=0;d<10;d++){const b=document.createElement('button');b.className='alt';b.textContent=d;b.setAttribute('aria-label','Dígito '+d);
   b.onclick=()=>{ev=sample(d)||ev;edraw()};$('#eddig').appendChild(b)}
-{const m=document.createElement('button');m.textContent='Mi dibujo';m.onclick=()=>{const x=prep(dc);if(x){ev=x;edraw()}else $('#e-err').textContent='Primero dibujá un número en la demo de la red neuronal.'};$('#eddig').appendChild(m)}
+
 ek.oninput=edraw;ev=sample(7);edraw();
 
 /* ---------- Vectores y espacio vectorial ---------- */
 const WD=[['perro',.18,.28,0],['gato',.26,.18,0],['caballo',.12,.42,0],['auto',.7,.25,1],['camión',.82,.38,1],['tren',.62,.4,1],['alegría',.3,.78,2],['tristeza',.46,.88,2],['miedo',.2,.9,2]],GC=['#f2a100','#5aa0ff','#6fcf97'];let vsel=0;
 function vdraw(){const w=WD[vsel],s=[...w[0]].reduce((a,c)=>a*31+c.charCodeAt(0),7),
   v=Array.from({length:12},(_,k)=>k===0?w[1]*2-1:k===1?w[2]*2-1:Math.sin(s*(k+3))*.9);
-  $('#vb').innerHTML=v.map(n=>`<div class="b"><i style="height:${Math.abs(n)*60}px;${n>0?'bottom:50%;background:var(--pos)':'top:50%;background:var(--neg)'}"></i><s>${n.toFixed(2)}</s></div>`).join('');
-  $('#vc').textContent='«'+w[0]+'» es una lista de '+v.length+' números. En un LLM real son cientos o miles.';
-  [...$('#vw').children].forEach((b,i)=>b.style.outline=i===vsel?'2px solid var(--acc)':'none');
+  if($('#vb'))$('#vb').innerHTML=v.map(n=>`<div class="b"><i style="height:${Math.abs(n)*60}px;${n>0?'bottom:50%;background:var(--pos)':'top:50%;background:var(--neg)'}"></i><s>${n.toFixed(2)}</s></div>`).join('');
+  if($('#vc'))$('#vc').textContent='«'+w[0]+'» es una lista de '+v.length+' números. En un LLM real son cientos o miles.';
+  if($('#vw'))[...$('#vw').children].forEach((b,i)=>b.style.outline=i===vsel?'2px solid var(--acc)':'none');
   const P=WD.map(q=>[20+q[1]*560,20+q[2]*300]),
   nn=WD.map((q,i)=>[i,Math.hypot(q[1]-w[1],q[2]-w[2])]).filter(a=>a[0]!==vsel).sort((a,b)=>a[1]-b[1]).slice(0,2);let h='';
   nn.forEach(a=>h+=`<line x1="${P[vsel][0]}" y1="${P[vsel][1]}" x2="${P[a[0]][0]}" y2="${P[a[0]][1]}"/>`);
   WD.forEach((q,i)=>h+=`<circle data-i="${i}" cx="${P[i][0]}" cy="${P[i][1]}" r="${i===vsel?11:8}" fill="${GC[q[3]]}" style="stroke:${i===vsel?'var(--ink)':'none'};stroke-width:3"/><text x="${P[i][0]+15}" y="${P[i][1]+4}">${q[0]}</text>`);
   h+='<text class="ax" x="20" y="334"></text>';$('#vs').innerHTML=h;
   $('#vn')}
-WD.forEach((q,i)=>{const b=document.createElement('button');b.className='alt';b.textContent=q[0];b.onclick=()=>{vsel=i;vdraw()};$('#vw').appendChild(b)});
+if($('#vw'))WD.forEach((q,i)=>{const b=document.createElement('button');b.className='alt';b.textContent=q[0];b.onclick=()=>{vsel=i;vdraw()};$('#vw').appendChild(b)});
 $('#vs').onclick=e=>{const i=e.target.dataset.i;if(i!=null){vsel=+i;vdraw()}};vdraw();
 
 /* ---------- RLHF vs RLAIF ---------- */
@@ -209,5 +208,15 @@ const NAV={inicio:$('#t-inicio'),red:$('#t-red'),codificador:$('#t-codificador')
 function spy(){let cur='inicio';SEC.forEach(([id,k])=>{if($('#'+id).getBoundingClientRect().top<=140)cur=k});
   for(const k in NAV){if(k===cur)NAV[k].setAttribute('aria-current','true');else NAV[k].removeAttribute('aria-current')}}
 addEventListener('scroll',spy,{passive:true});spy();
+
+/* ---------- Navbar: se oculta al bajar y reaparece al subir ---------- */
+const navbar=document.querySelector('nav');
+let lastScrollY=scrollY;
+addEventListener('scroll',()=>{
+  const y=scrollY;
+  if(y<=10||y<lastScrollY)navbar.classList.remove('nav-hidden');
+  else if(y>lastScrollY)navbar.classList.add('nav-hidden');
+  lastScrollY=Math.max(y,0);
+},{passive:true});
 
 train();

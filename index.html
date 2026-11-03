@@ -21,9 +21,10 @@
     </div>
 </nav>
 <header>
-  <h1>El deterioro de la salud mental en las personas debido al mal uso de la Inteligencia Artificial (IA)</h1>
+  <h1>El deterioro de la salud mental en las personas debido al mal uso de la <span class="letras Azules">Inteligencia Artificial (IA)</span></h1>
       <p class="by">
-        Made by: LEAL, Julián y STREITAS, Santiago <br> Instituto Padre Claret. <br> Tutor: Marcelo Maldonado. <br> Fecha: 08/10/2026</p>
+        Made by: LEAL, Julián y STREITAS, Santiago <br> Instituto Padre Claret. <br> Tutor: Marcelo Maldonado. <br> Fecha: 08/10/2026
+      </p>
 </header>
 <main>
 
@@ -54,8 +55,55 @@
   </div>
 </section>
 
+<h2>Partes de un modelo de lenguaje (LLM's)</h2>
+<p id="partesLLM">Los modelos de lenguaje grandes (LLMs) están compuestos por varias partes interconectadas que trabajan en conjunto para entender y generar texto. Estas partes incluyen:</p>
+<section id="s-codificador">
+  <h3 id="codydeco">Codificador y decodificador</h3>
+  <p id="pcodydeco">Son dos mitades de un mismo sistema. El codificador (encoder) lee la entrada y la comprime en un vector latente: una lista corta de números que conserva lo esencial. El decodificador (decoder) toma ese vector y genera una salida a partir de él: texto, una imagen o una traducción.</p>
+  <div class="flow"><span>Entrada</span><i>→</i><span class="k">Codificador</span><i>→</i><span>Vector latente</span><i>→</i><span class="k">Decodificador</span><i>→</i><span>Salida</span></div>
+  <div class="panel">
+    <strong>Ejemplo visual: comprimir y reconstruir un dígito</strong>
+    <p class="small">Elegí un dígito y cambiá cuántos números puede guardar el vector latente. Con pocos números, el decodificador reconstruye una imagen borrosa.</p>
+    <div class="row" id="eddig"></div>
+    <div hidden><canvas id="e-in" width="28" height="28"></canvas><canvas id="e-lat" width="112" height="112"></canvas><canvas id="e-out" width="28" height="28"></canvas></div>
+    <svg id="edv" class="edv" viewBox="0 0 760 275" role="img" aria-label="Autoencoder: imagen original, codificador, imagen comprimida, decodificador e imagen reconstruida"></svg>
+    <div class="ed2"><span id="e-n"></span><span id="e-err"></span></div>
+    <label>Tamaño del vector latente <input type="range" id="e-k" min="2" max="28" value="7" aria-label="Tamaño del vector latente"></label>
+    
+  </div>
+  <div class="cols">
+    <div class="panel"><h3>Solo codificador</h3><p>Convierte texto o imágenes en vectores que reflejan su significado. Modelos como BERT sirven para clasificar y buscar contenido parecido.</p></div>
+    <div class="panel"><h3>Solo decodificador</h3><p>Los modelos de la familia GPT leen lo que escribiste y siguen generando palabra por palabra. Así funcionan los chatbots.</p></div>
+    <div class="panel"><h3>Codificador + decodificador</h3><p>Uno entiende y el otro produce. Es la estructura de la traducción automática, del Transformer original y del autoencoder, que aprende a reconstruir sus propios datos.</p></div>
+  </div>
+</section>
+
+<section id="s-espacio">
+  <h3>Vectores multidimensionales y espacio vectorial</h3>
+  <p id="pvectores">Un modelo de lenguaje no entiende las palabras como las personas: las convierte en listas de números. Esas listas son los vectores multidimensionales (o incrustaciones), y el lugar donde viven es el espacio vectorial. Las palabras con significados parecidos quedan cerca unas de otras.</p>
+  <div class="panel">
+    <strong>Un vector multidimensional</strong>
+    <p class="small">Elegí una palabra. Cada barra es una dimensión: azul si el número es positivo, rojo si es negativo. Los valores son ilustrativos.</p>
+    <div class="row" id="vw"></div>
+    <div class="vb" id="vb"></div>
+    <p class="small" id="vc"></p>
+  </div>
+  <div class="panel" style="margin-top:14px">
+    <strong>El espacio vectorial</strong>
+    <p class="small">Cada palabra es un punto. Tocá uno para ver cuáles son sus vecinas más cercanas. Acá hay 2 dimensiones para poder dibujarlas; un LLM usa cientos o miles.</p>
+    <svg id="vs" class="vs" viewBox="0 0 600 340" role="img" aria-label="Mapa de palabras en un espacio vectorial"></svg>
+    <div class="leg"><span><b style="background:#f2a100"></b>Animales</span><span><b style="background:#5aa0ff"></b>Vehículos</span><span><b style="background:#6fcf97"></b>Emociones</span></div>
+    <p id="vn" style="margin:10px 0 0"></p>
+  </div>
+  <div class="cols">
+    <div class="panel"><h3>Vector multidimensional</h3><p>Lista larga de números que representa el significado y el contexto de una palabra, frase o texto.</p></div>
+    <div class="panel"><h3>Espacio vectorial</h3><p>Entorno matemático de alta dimensión donde se ubican esos vectores. La distancia entre puntos mide qué tan parecido es su significado.</p></div>
+    <div class="panel"><h3>Con el codificador y el decodificador</h3><p>El codificador convierte el texto en vectores y el decodificador los usa para producir una respuesta nueva, palabra por palabra.</p></div>
+  </div>
+</section>
+
 <section id="s-red">
-  <h2 id="laredneuronal">La red neuronal</h2>
+  <h3 id="laredneuronal">La red neuronal</h3>
   <p id="predneuronal">Una red neuronal es una cadena de capas de “neuronas”: cada una recibe números, los multiplica por pesos, los suma y pasa el resultado a la capa siguiente. Entrenar la red es ajustar esos pesos hasta que la salida sea correcta. Esta red recibe una imagen de 28×28 píxeles (784 números), la procesa en dos capas ocultas de 16 neuronas y responde con 10 salidas: una por cada dígito.</p>
   <button id="use" disabled>Preparando la red…</button>
   <div class="bar"><i id="pb"></i></div>
@@ -87,53 +135,8 @@
   </div>
 </section>
 
-<section id="s-codificador">
-  <h2 id="codydeco">Codificador y decodificador</h2>
-  <p id="pcodydeco">Son dos mitades de un mismo sistema. El codificador (encoder) lee la entrada y la comprime en un vector latente: una lista corta de números que conserva lo esencial. El decodificador (decoder) toma ese vector y genera una salida a partir de él: texto, una imagen o una traducción.</p>
-  <div class="flow"><span>Entrada</span><i>→</i><span class="k">Codificador</span><i>→</i><span>Vector latente</span><i>→</i><span class="k">Decodificador</span><i>→</i><span>Salida</span></div>
-  <div class="panel">
-    <strong>Ejemplo visual: comprimir y reconstruir un dígito</strong>
-    <p class="small">Elegí un dígito y cambiá cuántos números puede guardar el vector latente. Con pocos números, el decodificador reconstruye una imagen borrosa.</p>
-    <div class="row" id="eddig"></div>
-    <div hidden><canvas id="e-in" width="28" height="28"></canvas><canvas id="e-lat" width="112" height="112"></canvas><canvas id="e-out" width="28" height="28"></canvas></div>
-    <svg id="edv" class="edv" viewBox="0 0 760 275" role="img" aria-label="Autoencoder: imagen original, codificador, imagen comprimida, decodificador e imagen reconstruida"></svg>
-    <div class="ed2"><span id="e-n"></span><span id="e-err"></span></div>
-    <label>Tamaño del vector latente <input type="range" id="e-k" min="2" max="28" value="7" aria-label="Tamaño del vector latente"></label>
-    <p class="small">En este ejemplo el codificador es una compresión fija (promedia píxeles). En una IA real, la red neuronal aprende sola qué información conservar.</p>
-  </div>
-  <div class="cols">
-    <div class="panel"><h3>Solo codificador</h3><p>Convierte texto o imágenes en vectores que reflejan su significado. Modelos como BERT sirven para clasificar y buscar contenido parecido.</p></div>
-    <div class="panel"><h3>Solo decodificador</h3><p>Los modelos de la familia GPT leen lo que escribiste y siguen generando palabra por palabra. Así funcionan los chatbots.</p></div>
-    <div class="panel"><h3>Codificador + decodificador</h3><p>Uno entiende y el otro produce. Es la estructura de la traducción automática, del Transformer original y del autoencoder, que aprende a reconstruir sus propios datos.</p></div>
-  </div>
-</section>
-
-<section id="s-espacio">
-  <h2>Vectores multidimensionales y espacio vectorial</h2>
-  <p>Un modelo de lenguaje no entiende las palabras como las personas: las convierte en listas de números. Esas listas son los vectores multidimensionales (o incrustaciones), y el lugar donde viven es el espacio vectorial. Las palabras con significados parecidos quedan cerca unas de otras.</p>
-  <div class="panel">
-    <strong>Un vector multidimensional</strong>
-    <p class="small">Elegí una palabra. Cada barra es una dimensión: azul si el número es positivo, rojo si es negativo. Los valores son ilustrativos.</p>
-    <div class="row" id="vw"></div>
-    <div class="vb" id="vb"></div>
-    <p class="small" id="vc"></p>
-  </div>
-  <div class="panel" style="margin-top:14px">
-    <strong>El espacio vectorial</strong>
-    <p class="small">Cada palabra es un punto. Tocá uno para ver cuáles son sus vecinas más cercanas. Acá hay 2 dimensiones para poder dibujarlas; un LLM usa cientos o miles.</p>
-    <svg id="vs" class="vs" viewBox="0 0 600 340" role="img" aria-label="Mapa de palabras en un espacio vectorial"></svg>
-    <div class="leg"><span><b style="background:#f2a100"></b>Animales</span><span><b style="background:#5aa0ff"></b>Vehículos</span><span><b style="background:#6fcf97"></b>Emociones</span></div>
-    <p id="vn" style="margin:10px 0 0"></p>
-  </div>
-  <div class="cols">
-    <div class="panel"><h3>Vector multidimensional</h3><p>Lista larga de números que representa el significado y el contexto de una palabra, frase o texto.</p></div>
-    <div class="panel"><h3>Espacio vectorial</h3><p>Entorno matemático de alta dimensión donde se ubican esos vectores. La distancia entre puntos mide qué tan parecido es su significado.</p></div>
-    <div class="panel"><h3>Con el codificador y el decodificador</h3><p>El codificador convierte el texto en vectores y el decodificador los usa para producir una respuesta nueva, palabra por palabra.</p></div>
-  </div>
-</section>
-
 <section id="s-rlhf">
-  <h2>RLHF vs RLAIF</h2>
+  <h3>RLHF vs RLAIF</h3>
   <p>Después del preentrenamiento y el ajuste fino, el modelo se refina con aprendizaje por refuerzo: genera respuestas, recibe una señal de qué tan buenas son y se ajusta. La diferencia entre los dos métodos es quién da esa señal.</p>
   <button id="rsim">Recorrer el proceso</button>
   <div class="rl">
