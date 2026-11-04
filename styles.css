@@ -159,6 +159,11 @@ h3 + p {
     margin:20px auto 40px;
     font-size: clamp(1.5rem, 4.2vw, 22px);
 }
+#predneuronal0{
+    text-align: justify;
+    margin:20px auto 40px;
+    font-size: clamp(1.5rem, 4.2vw, 22px);
+}
 #prlhfvsrlaif{
     text-align: justify;
     margin:20px auto 40px;

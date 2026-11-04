@@ -56,7 +56,7 @@
 </section>
 
 <h2>Partes de un modelo de lenguaje (LLM's)</h2>
-<p id="partesLLM">Los modelos de lenguaje grandes (LLMs) están compuestos por varias partes interconectadas que trabajan en conjunto para entender y generar texto. Estas partes incluyen:</p>
+<p id="partesLLM">Los modelos de lenguaje grandes (LLMs) están compuestos por varias partes interconectadas que trabajan en conjunto para entender y generar contenidos. Estas partes incluyen:</p>
 <section id="s-codificador">
   <h3 id="codydeco">Codificador y decodificador</h3>
   <p id="pcodydeco">Son dos mitades de un mismo sistema. El codificador (encoder) lee la entrada y la comprime en un vector latente: una lista corta de números que conserva lo esencial. El decodificador (decoder) toma ese vector y genera una salida a partir de él: texto, una imagen o una traducción.</p>
@@ -68,11 +68,6 @@
     <svg id="edv" class="edv" viewBox="0 0 760 275" role="img" aria-label="Autoencoder: imagen original, codificador, imagen comprimida, decodificador e imagen reconstruida"></svg>
     <label>Tamaño del vector latente <input type="range" id="e-k" min="2" max="28" value="7" aria-label="Tamaño del vector latente"></label>
     
-  </div>
-  <div class="cols decoder-cards">
-    <div class="panel"><h3>Solo codificador</h3><p>Convierte texto o imágenes en vectores que reflejan su significado. Modelos como BERT sirven para clasificar y buscar contenido parecido.</p></div>
-    <div class="panel"><h3>Solo decodificador</h3><p>Los modelos de la familia GPT leen lo que escribiste y siguen generando palabra por palabra. Así funcionan los chatbots.</p></div>
-    <div class="panel"><h3>Codificador + decodificador</h3><p>Uno entiende y el otro produce. Es la estructura de la traducción automática, del Transformer original y del autoencoder, que aprende a reconstruir sus propios datos.</p></div>
   </div>
 </section>
 
@@ -95,8 +90,9 @@
 
 <section id="s-red">
   <h3 id="laredneuronal">La red neuronal</h3>
-  <p id="predneuronal1">Una red neuronal es una cadena de capas de “neuronas”: cada una recibe números, los multiplica por pesos, los suma y pasa el resultado a la capa siguiente. Entrenar la red es ajustar esos pesos hasta que la salida sea correcta. </p>
-  <p id="predneuronal2">Esta red Ejemplar recibe una imagen de 28×28 píxeles (784 números), la procesa en dos capas ocultas de 16 neuronas y responde con 10 salidas: una por cada dígito.</p>
+  <p id="predneuronal0">Es un modelo matemático masivo inspirado en el cerebro humano que procesa texto, aprende patrones del lenguaje y predice cuál es la siguiente palabra más probable en una oración. </p>
+  <p id="predneuronal1">Se compone de una cadena de capas de “neuronas”: cada una recibe números, los multiplica por pesos, los suma y pasa el resultado a la capa siguiente. Entrenar la red es ajustar esos pesos hasta que la salida sea correcta. </p>
+  <p id="predneuronal2">Esta red ejemplar recibe una imagen de 28×28 píxeles (784 números), la procesa en dos capas ocultas de 16 neuronas y responde con 10 salidas: una por cada dígito.</p>
   <button id="use" disabled>Preparando la red…</button>
   <div class="bar"><i id="pb"></i></div>
   <p class="small" id="st">Entrenando la red en tu navegador con dígitos generados con distintas tipografías.</p>
@@ -118,11 +114,11 @@
   <div class="network-explainer">
     <h3 id="comofuncionalared">¿Cómo funciona la red?</h3>
     <div class="network-flow">
-      <div class="panel"><h3>1 - Entrada</h3><p>Tu dibujo se recorta, se centra y se reduce a una grilla de 28×28. Cada píxel es un número entre 0 (negro) y 1 (blanco).</p></div>
+      <div class="panel"><h3>1 - Entrada</h3><p>La red recibe datos representados como números. Cada valor puede ser un píxel, una palabra, una característica o una medición. Esta representación numérica es la información que la red utilizará para encontrar patrones.</p></div>
       <span class="network-arrow" aria-hidden="true">→</span>
-      <div class="panel"><h3>2 - Capas ocultas</h3><p>Cada neurona detecta un patrón de la capa anterior. Cuanto más se parece la entrada a ese patrón, más se ilumina.</p></div>
+      <div class="panel"><h3>2 - Capas ocultas</h3><p>Cada neurona combina los valores de la capa anterior mediante pesos y un sesgo. Luego aplica una función de activación. Al atravesar varias capas, la red transforma los datos y construye representaciones cada vez más complejas.</p></div>
       <span class="network-arrow" aria-hidden="true">→</span>
-      <div class="panel"><h3>3 - Salida</h3><p>Las 10 neuronas finales se convierten en probabilidades. La más alta es la respuesta de la red.</p></div>
+      <div class="panel"><h3>3 - Salida</h3><p>La última capa reúne la información procesada y produce el resultado. Según la tarea, puede generar una categoría, un valor numérico o una distribución de probabilidades. Durante el entrenamiento, la red ajusta sus pesos para reducir sus errores.</p></div>
     </div>
   </div>
 </section>
